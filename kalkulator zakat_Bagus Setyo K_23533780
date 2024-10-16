@@ -1,0 +1,121 @@
+import java.util.Scanner;
+
+public class zakat2 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int pilihan;
+        
+        System.out.print("Masukkan nama anda: ");
+        String nama = scanner.nextLine();
+
+        do {
+            System.out.println("Kalkulator Zakat");
+            System.out.println("1. Zakat Fitrah");
+            System.out.println("2. Zakat Maal");
+            System.out.println("3. Keluar");
+            System.out.print("Pilih jenis zakat (1/2/3): ");
+            pilihan = scanner.nextInt();
+
+            switch (pilihan) {
+                case 1:
+                    hitungZakatFitrah();
+                    break;
+                case 2:
+                    hitungZakatMaal();
+                    break;
+                case 3:
+                    System.out.println("suwun nggeh.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            }
+
+        } while (pilihan != 3);
+
+        scanner.close();
+    }
+
+    public static void hitungZakatFitrah() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan jumlah anggota keluarga anda: ");
+        int anggklrg = scanner.nextInt();
+
+        System.out.println("Pilih cara pembayaran zakat fitrah:");
+        System.out.println("1. Beras");
+        System.out.println("2. Uang");
+        System.out.print("Pilih metode pembayaran (1/2): ");
+        int pilihbayar = scanner.nextInt();
+
+        switch (pilihbayar) {
+            case 1:
+                double zktperorg = 2.5; // Zakat fitrah dalam bentuk beras (kg) per orang
+                double totalZakatBeras = zktperorg * anggklrg;
+                System.out.println("Zakat fitrah yang harus dibayar untuk " + anggklrg + " orang adalah: " + totalZakatBeras + " kg beras.");
+                break;
+            case 2:
+                System.out.print("Masukkan harga beras per kg (Rupiah): ");
+                double hargaBerasPerKg = scanner.nextDouble();
+                double zktperorang = 2.5 * hargaBerasPerKg; // Zakat fitrah dalam bentuk uang, dihitung berdasarkan 2.5 kg beras
+                double totalZakatUang = zktperorang * anggklrg;
+                System.out.println("Zakat fitrah yang harus dibayar untuk " + anggklrg + " orang adalah: Rp" + totalZakatUang);
+                break;
+            default:
+                System.out.println("Pilihan tidak valid.");
+        }
+    }
+
+    public static void hitungZakatMaal() {
+        Scanner scanner = new Scanner(System.in);
+        double totalHarta = 0;
+        int pilihanHarta;
+
+        System.out.println("Pilih jenis harta yang ingin dizakatkan:");
+        System.out.println("1. Emas");
+        System.out.println("2. Perak");
+        System.out.println("3. Uang");
+        System.out.println("4. Properti (aset investasi)");
+        System.out.println("5. Barang dagangan");
+        System.out.print("Pilih jenis harta (1/2/3/4/5): ");
+        pilihanHarta = scanner.nextInt();
+
+        switch (pilihanHarta) {
+            case 1:
+                System.out.print("Masukkan total emas (gram): ");
+                double emas = scanner.nextDouble();
+                double hargaEmas = 1000000; // Harga per gram emas (misalnya Rp1 juta/gram)
+                totalHarta = emas * hargaEmas;
+                break;
+            case 2:
+                System.out.print("Masukkan total perak (gram): ");
+                double perak = scanner.nextDouble();
+                double hargaPerak = 12000; // Harga per gram perak (misalnya Rp12 ribu/gram)
+                totalHarta = perak * hargaPerak;
+                break;
+            case 3:
+                System.out.print("Masukkan total uang (Rupiah): ");
+                totalHarta = scanner.nextDouble();
+                break;
+            case 4:
+                System.out.print("Masukkan total nilai properti (aset investasi) dalam Rupiah: ");
+                totalHarta = scanner.nextDouble();
+                break;
+            case 5:
+                System.out.print("Masukkan total nilai barang dagangan dalam Rupiah: ");
+                totalHarta = scanner.nextDouble();
+                break;
+            default:
+                System.out.println("Pilihan tidak valid.");
+                return;
+        }
+
+        double nisab = 85700000; // Nisab zakat maal (setara dengan 85 gram emas x Rp1 juta/gram)
+
+        if (totalHarta >= nisab) {
+            double zakat = totalHarta * 0.025; // Zakat maal sebesar 2.5% dari total harta
+            System.out.println("Zakat maal yang harus dibayar adalah: Rp" + zakat);
+        } else {
+            System.out.println("Total harta Anda belum mencapai nisab, tidak wajib zakat.");
+        }
+    }
+}
